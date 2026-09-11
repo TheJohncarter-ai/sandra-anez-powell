@@ -1,0 +1,956 @@
+<meta charset="utf-8">
+<title>Sandra Añez Powell</title>
+<meta name="description" content="Sandra Añez Powell is a Venezuelan-born painter in Annapolis, Maryland — Chesapeake regattas, harbor moons, country portraits and joyful acrylic color. Originals, fine-art prints and commissions.">
+<meta property="og:title" content="Sandra Añez Powell — Paintings from Annapolis">
+<meta property="og:description" content="Regattas, harbor moons, portraits and pure color by Venezuelan-born Annapolis painter Sandra Añez Powell.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Mrs+Saint+Delafield&display=swap">
+<!--JSONLD-->
+<style>
+  :root {
+    --ground: #F6F5F1;
+    --mat: #FFFFFF;
+    --panel: #ECEAE3;
+    --ink: #172033;
+    --soft: #596172;
+    --line: #D9D6CC;
+    --accent: #E29A1F;
+    --accent-ink: #8E5604;
+    --magenta: #C0507F;
+    --cobalt: #2E5FA3;
+    --leaf: #3E8A5A;
+    --violet: #7B5EA7;
+    --night: #0E1524;
+    --night-ink: #F1ECE1;
+    --night-soft: #A8AFBF;
+    --shadow: 0 1px 2px rgba(23, 32, 51, 0.10), 0 10px 26px rgba(23, 32, 51, 0.12);
+    --shadow-lift: 0 2px 4px rgba(23, 32, 51, 0.12), 0 22px 44px rgba(23, 32, 51, 0.20);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #111723;
+      --mat: #1B2231;
+      --panel: #161D2B;
+      --ink: #ECE7DC;
+      --soft: #A3A9B7;
+      --line: #2A3346;
+      --accent: #F0B24A;
+      --accent-ink: #F0B24A;
+      --magenta: #D876A2;
+      --cobalt: #6C95D6;
+      --leaf: #63B283;
+      --violet: #A08AC9;
+      --night: #0A0F1A;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 26px rgba(0, 0, 0, 0.35);
+      --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 22px 44px rgba(0, 0, 0, 0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #111723;
+    --mat: #1B2231;
+    --panel: #161D2B;
+    --ink: #ECE7DC;
+    --soft: #A3A9B7;
+    --line: #2A3346;
+    --accent: #F0B24A;
+    --accent-ink: #F0B24A;
+    --magenta: #D876A2;
+    --cobalt: #6C95D6;
+    --leaf: #63B283;
+    --violet: #A08AC9;
+    --night: #0A0F1A;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 26px rgba(0, 0, 0, 0.35);
+    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 22px 44px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: "Alegreya Sans", "Gill Sans", "Gill Sans MT", "Segoe UI", sans-serif;
+    font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  button { -webkit-tap-highlight-color: transparent; }
+  .display { font-family: "Bodoni Moda", Didot, "Bodoni 72", "Bodoni MT", Georgia, serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .label {
+    font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.17em;
+    font-weight: 700; color: var(--accent-ink); margin: 0;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px;
+  }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--ground); padding: 8px 14px; z-index: 99; }
+  .skip:focus { left: 12px; }
+
+  /* paint-drip bar: drips run down once on load */
+  .dripbar {
+    position: relative; height: 5px;
+    background: linear-gradient(90deg, var(--accent) 0 20%, var(--magenta) 20% 40%, var(--cobalt) 40% 60%, var(--leaf) 60% 80%, var(--violet) 80% 100%);
+  }
+  .dripbar span { position: absolute; top: 5px; width: 6px; border-radius: 0 0 6px 6px; animation: drip 1.6s cubic-bezier(.3, .75, .2, 1) both; }
+  .dripbar span:nth-child(1) { left: 9%; height: 16px; background: var(--accent); animation-delay: .1s; }
+  .dripbar span:nth-child(2) { left: 33%; height: 10px; background: var(--magenta); animation-delay: .45s; }
+  .dripbar span:nth-child(3) { left: 52%; height: 22px; background: var(--cobalt); width: 7px; animation-delay: .25s; }
+  .dripbar span:nth-child(4) { left: 73%; height: 9px; background: var(--leaf); animation-delay: .6s; }
+  .dripbar span:nth-child(5) { left: 91%; height: 14px; background: var(--violet); animation-delay: .35s; }
+  @keyframes drip { from { height: 0; } }
+
+  /* header */
+  header .bar {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px 20px;
+    padding: 26px 0 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap;
+  }
+  .wordmark { display: flex; flex-direction: column; text-decoration: none; line-height: 1.1; }
+  .wordmark .name { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.01em; }
+  .wordmark .name em { font-style: italic; color: var(--accent-ink); }
+  .wordmark .sub { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--soft); margin-top: 6px; }
+  nav { display: flex; gap: 24px; }
+  nav a, nav button {
+    font: inherit; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; white-space: nowrap;
+    color: var(--soft); text-decoration: none; background: none; border: 0; padding: 6px 0; cursor: pointer;
+  }
+  nav a:hover, nav button:hover { color: var(--ink); }
+
+  /* hero: a salon hang that states her range */
+  .hero { display: grid; grid-template-columns: 1fr 1.08fr; gap: 64px; align-items: center; padding: 56px 0 72px; }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.9rem); line-height: 0.98; font-weight: 500;
+    margin: 18px 0 24px; text-wrap: balance; letter-spacing: -0.005em;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent-ink); }
+  .hero .lede { font-size: 1.18rem; color: var(--soft); max-width: 31rem; margin: 0 0 30px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-block; font: inherit; font-size: 0.8rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.15em; text-decoration: none; cursor: pointer;
+    padding: 14px 26px; border: 0; background: var(--ink); color: var(--ground);
+    border-radius: 240px 16px 220px 18px / 18px 220px 16px 240px;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .btn:hover { background: var(--accent-ink); color: #fff; }
+  .btn:active { transform: scale(0.97); }
+  .btn.quiet { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+  .btn.quiet:hover { box-shadow: inset 0 0 0 1px var(--ink); background: transparent; color: var(--ink); }
+  .salon-wrap { justify-self: end; width: 100%; max-width: 540px; }
+  .salon { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; align-items: end; }
+  .salon .big { grid-row: 1 / 3; }
+  .hung { margin: 0; }
+  .hung .mat { background: var(--mat); padding: 10px; box-shadow: var(--shadow); cursor: zoom-in; }
+  .hung img { transition: opacity 0.35s ease, transform 0.5s ease; }
+  .hung.swap img { opacity: 0; transform: scale(0.97); }
+  .hung figcaption { font-size: 0.78rem; color: var(--soft); margin-top: 8px; }
+  .hung figcaption i { font-family: "Bodoni Moda", Georgia, serif; color: var(--ink); font-size: 0.92rem; }
+  .rehang {
+    margin-top: 16px; background: none; border: 0; padding: 6px 0; cursor: pointer; font: inherit;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent-ink);
+    display: inline-flex; gap: 8px; align-items: center;
+  }
+  .rehang .ic { display: inline-block; transition: transform 0.5s ease; font-size: 1.05rem; }
+  .rehang:hover .ic { transform: rotate(-180deg); }
+
+  /* collections */
+  section { padding: 64px 0; }
+  .sec-head h2, .about h2, .commission h2, .night h2 {
+    font-size: clamp(1.9rem, 3.8vw, 2.9rem); line-height: 1.05; font-weight: 500; margin: 10px 0 0; text-wrap: balance;
+  }
+  .sec-head { margin-bottom: 26px; }
+  .filters { display: grid; gap: 18px; margin-bottom: 30px; }
+  .rowlabel { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--soft); font-weight: 700; margin: 0 0 8px; }
+  .chips, .swatches { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+  .chip {
+    font: inherit; font-size: 0.95rem; cursor: pointer; color: var(--ink);
+    background: transparent; border: 1px solid var(--line); padding: 7px 14px 7px 12px;
+    border-radius: 999px; display: inline-flex; align-items: center; gap: 9px; white-space: nowrap;
+  }
+  .chip:hover { border-color: var(--ink); }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+  .chip .n { font-size: 0.78rem; opacity: 0.65; font-variant-numeric: tabular-nums; }
+  .blob { width: 11px; height: 11px; flex: none; border-radius: 55% 45% 60% 40% / 45% 60% 40% 55%; }
+  .swatches { gap: 6px 14px; }
+  .sw {
+    background: none; border: 0; padding: 4px 2px; cursor: pointer; font: inherit; color: var(--soft);
+    font-size: 0.8rem; display: inline-flex; flex-direction: column; align-items: center; gap: 6px; position: relative; flex: none;
+  }
+  .sw .paint { width: 34px; height: 34px; display: block; transition: transform 0.25s cubic-bezier(.3, 1.6, .5, 1); box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12); }
+  .sw:nth-child(3n+1) .paint { border-radius: 60% 40% 55% 45% / 50% 60% 40% 55%; }
+  .sw:nth-child(3n+2) .paint { border-radius: 45% 55% 40% 60% / 60% 45% 55% 40%; }
+  .sw:nth-child(3n) .paint { border-radius: 55% 45% 60% 40% / 40% 55% 45% 60%; }
+  .sw:hover .paint { transform: scale(1.14) rotate(-10deg); }
+  .sw[aria-pressed="true"] { color: var(--ink); font-weight: 700; }
+  .sw[aria-pressed="true"] .paint { transform: scale(1.1); outline: 2px solid var(--ink); outline-offset: 3px; }
+  .sw .splat { position: absolute; top: 4px; left: 50%; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; pointer-events: none; animation: splat 0.55s ease-out forwards; }
+  @keyframes splat { from { transform: scale(0.6); opacity: 0.55; } to { transform: scale(2.4); opacity: 0; } }
+  .snap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .snap .rowlabel { flex-basis: 100%; margin: 0; }
+  .snap .btn { padding: 11px 20px; }
+  .snap-note { font-size: 0.82rem; color: var(--soft); margin: 0; }
+  .snap-result { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; }
+  .snap-result[hidden] { display: none; }
+  .snap-sw { display: inline-flex; gap: 6px; }
+  .snap-sw .blob { width: 20px; height: 20px; }
+  .coll-intro { display: flex; gap: 6px 14px; align-items: baseline; flex-wrap: wrap; margin: 0 0 30px; max-width: 62rem; }
+  .coll-intro .cname { font-family: "Bodoni Moda", Georgia, serif; font-style: italic; font-size: 1.5rem; }
+  .coll-intro .gloss { color: var(--soft); font-size: 0.95rem; }
+  .coll-intro p { margin: 0; color: var(--soft); flex-basis: 100%; max-width: 40rem; }
+  .clear { background: none; border: 0; font: inherit; font-size: 0.85rem; color: var(--accent-ink); cursor: pointer; text-decoration: underline; padding: 0; }
+
+  .gallery { columns: 3 250px; column-gap: 30px; }
+  .piece { break-inside: avoid; margin: 0 0 36px; }
+  .piece.pop { animation: pop 0.45s ease both; }
+  @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(0.98); } }
+  .frame {
+    display: block; width: 100%; padding: 10px; border: 0; margin: 0;
+    background: var(--mat); box-shadow: var(--shadow); cursor: zoom-in;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .frame img { width: 100%; height: auto; }
+  .frame:hover { transform: translateY(-3px) rotate(-0.5deg); box-shadow: var(--shadow-lift); }
+  .frame:active { transform: scale(0.98); }
+  .piece figcaption { margin-top: 12px; display: grid; gap: 2px; }
+  .piece .t { font-family: "Bodoni Moda", Georgia, serif; font-style: italic; font-size: 1.12rem; line-height: 1.25; }
+  .piece .m { font-size: 0.82rem; color: var(--soft); }
+  .status { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; font-weight: 500; color: var(--ink); }
+  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+  .status.prints::before { background: var(--leaf); }
+  .status.sold::before { background: var(--magenta); }
+  .empty { color: var(--soft); font-style: italic; }
+
+  /* about */
+  .about { background: var(--panel); }
+  .about-inner { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: start; }
+  .studio { margin: 0; transform: rotate(-1.2deg); }
+  .studio .mat { background: var(--mat); padding: 12px 12px 40px; box-shadow: var(--shadow); }
+  .studio figcaption { font-family: "Mrs Saint Delafield", "Brush Script MT", cursive; font-size: 1.7rem; margin-top: -34px; padding-left: 18px; color: var(--ink); position: relative; }
+  .about p { max-width: 36rem; margin: 0 0 16px; }
+  .about .intro { font-size: 1.2rem; }
+  blockquote {
+    margin: 30px 0 10px; padding: 0 0 0 22px; border-left: 3px solid var(--accent);
+    font-family: "Bodoni Moda", Georgia, serif; font-size: 1.3rem; line-height: 1.45; max-width: 36rem;
+  }
+  blockquote i { color: var(--accent-ink); }
+  .sig { font-family: "Mrs Saint Delafield", "Brush Script MT", cursive; font-size: 2.6rem; color: var(--accent-ink); line-height: 1; margin: 14px 0 0; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 26px; padding: 16px 0 0; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--soft); }
+  .facts b { color: var(--ink); font-weight: 500; }
+
+  /* commission */
+  .commission-inner { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
+  .commission .intro { color: var(--soft); max-width: 30rem; margin: 16px 0 26px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 26px 32px; counter-reset: s; }
+  .steps li { counter-increment: s; padding-top: 14px; border-top: 1px solid var(--line); }
+  .steps li::before { content: counter(s); font-family: "Bodoni Moda", Georgia, serif; font-size: 1.9rem; line-height: 1; color: var(--accent-ink); display: block; margin-bottom: 8px; }
+  .steps b { display: block; font-size: 1.05rem; }
+  .steps span { color: var(--soft); font-size: 0.95rem; }
+
+  /* night harbor contact */
+  .night { background: var(--night); color: var(--night-ink); position: relative; overflow: hidden; }
+  .night-inner { position: relative; text-align: center; padding: 84px 0 70px; }
+  #moon { position: absolute; width: 190px; height: 190px; right: 6%; top: 26px; opacity: 0.85; pointer-events: none; }
+  .night .label { color: #F0B24A; }
+  .night h2 { color: var(--night-ink); }
+  .night p { color: var(--night-soft); max-width: 34rem; margin: 16px auto 30px; }
+  .night .ctas { justify-content: center; }
+  .night .btn { background: #F0B24A; color: #1C1405; }
+  .night .btn:hover { background: #FFD27F; }
+  .night .btn.quiet { background: transparent; color: var(--night-ink); box-shadow: inset 0 0 0 1px rgba(241, 236, 225, 0.35); }
+  .night .btn.quiet:hover { box-shadow: inset 0 0 0 1px var(--night-ink); }
+  .habla { margin-top: 26px !important; font-size: 0.95rem; }
+  footer { border-top: 1px solid rgba(241, 236, 225, 0.14); padding: 24px 0 70px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 0.8rem; color: var(--night-soft); letter-spacing: 0.06em; }
+
+  /* lightbox */
+  .lightbox { position: fixed; inset: 0; z-index: 50; background: rgba(9, 12, 20, 0.95); display: none; padding: 4vh 4vw; }
+  .lightbox.open { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 36px; align-items: center; }
+  .lb-stage { position: relative; display: flex; justify-content: center; align-items: center; min-height: 0; height: 100%; touch-action: pan-y; }
+  #lb-img { max-height: 88vh; max-width: 100%; width: auto; background: #fff; padding: 10px; box-shadow: 0 24px 80px rgba(0,0,0,0.6); user-select: none; -webkit-user-drag: none; }
+  .loupe { position: fixed; width: 180px; height: 180px; border-radius: 50%; pointer-events: none; z-index: 56; display: none; background-repeat: no-repeat; box-shadow: 0 0 0 3px #fff, 0 14px 40px rgba(0,0,0,0.55); }
+
+  /* view on a wall */
+  .room { position: relative; width: min(100%, 980px); aspect-ratio: 16 / 10; max-height: 86vh; background: var(--wall, #EEEAE0); overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.5); transition: background 0.4s ease; }
+  .room::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 13%; background: linear-gradient(#8A6F55, #6E563F); }
+  .room::before { content: ""; position: absolute; left: 0; right: 0; bottom: 13%; height: 2.2%; background: rgba(255,255,255,0.55); z-index: 1; }
+  .room .sofa { position: absolute; left: 50%; bottom: 11%; width: 56%; transform: translateX(-50%); z-index: 2; }
+  .room .art { position: absolute; left: 50%; transform: translateX(-50%); z-index: 2; background: #fff; padding: 0.5%; box-shadow: 0 10px 22px rgba(0,0,0,0.28); transition: width 0.45s cubic-bezier(.3, .8, .3, 1), height 0.45s cubic-bezier(.3, .8, .3, 1); }
+  .room .art img { width: 100%; height: 100%; object-fit: cover; }
+  .room .ruler { position: absolute; left: 50%; transform: translateX(-50%); bottom: 4%; z-index: 3; font-size: 0.78rem; color: #F6F1E6; letter-spacing: 0.08em; }
+  .lb-stage.walled #lb-img { display: none; }
+  .lb-stage:not(.walled) .room { display: none; }
+
+  .lb-info { color: #E9E4D8; }
+  .lb-info .label { color: #F0B24A; }
+  .lb-info h3 { font-family: "Bodoni Moda", Georgia, serif; font-style: italic; font-weight: 500; font-size: 1.8rem; line-height: 1.15; margin: 10px 0 12px; }
+  .lb-info dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 0.9rem; margin: 0 0 20px; }
+  .lb-info dt { color: #9AA1B2; }
+  .lb-info dd { margin: 0; }
+  .lb-info .btn { background: #F0B24A; color: #1C1405; display: block; text-align: center; margin-bottom: 10px; width: 100%; }
+  .lb-info .btn.quiet { background: transparent; color: #E9E4D8; box-shadow: inset 0 0 0 1px rgba(233, 228, 216, 0.35); }
+  .walltools { border-top: 1px solid rgba(233, 228, 216, 0.15); margin-top: 8px; padding-top: 14px; display: grid; gap: 10px; }
+  .walltools[hidden] { display: none !important; }
+  .seg { display: flex; gap: 6px; }
+  .seg button { flex: 1; font: inherit; font-size: 0.85rem; padding: 7px 0; cursor: pointer; background: transparent; color: #E9E4D8; border: 1px solid rgba(233, 228, 216, 0.3); border-radius: 4px; }
+  .seg button[aria-pressed="true"] { background: #E9E4D8; color: #10141F; border-color: #E9E4D8; }
+  .walls { display: flex; gap: 10px; align-items: center; font-size: 0.82rem; color: #9AA1B2; }
+  .walls button { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.35); cursor: pointer; padding: 0; }
+  .walls button[aria-pressed="true"] { border-color: #F0B24A; transform: scale(1.12); }
+  .fine { font-size: 0.78rem; color: #9AA1B2; margin: 0; }
+  .hint-touch { display: none; }
+  @media (hover: none) { .hint-touch { display: block; } .hint-mouse { display: none; } }
+  .lb-count { color: #9AA1B2; font-size: 0.82rem; font-variant-numeric: tabular-nums; margin: 12px 0 0; }
+  .lb-ctrl { position: absolute; background: rgba(241, 236, 225, 0.12); color: #E9E4D8; border: 0; width: 46px; height: 46px; border-radius: 50%; font: inherit; font-size: 1.3rem; cursor: pointer; z-index: 3; }
+  .lb-ctrl:hover { background: rgba(241, 236, 225, 0.25); }
+  .lb-close { top: 2.5vh; right: 2.5vw; }
+  .lb-prev { left: 1.5vw; top: 50%; }
+  .lb-next { left: calc(100% - 300px - 4vw - 36px - 58px); top: 50%; }
+
+  /* order slip drawer */
+  .scrim { position: fixed; inset: 0; background: rgba(9, 12, 20, 0.5); z-index: 58; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(430px, 94vw); z-index: 60; background: var(--ground); border-left: 1px solid var(--line); box-shadow: -18px 0 50px rgba(0,0,0,0.25); transform: translateX(105%); transition: transform 0.35s ease; display: flex; flex-direction: column; }
+  .drawer.open { transform: none; }
+  .drawer-head { padding: 22px 26px 16px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .drawer-head h3 { font-family: "Bodoni Moda", Georgia, serif; font-style: italic; font-weight: 500; font-size: 1.5rem; margin: 0; }
+  .x { background: none; border: 0; font-size: 1.6rem; color: var(--soft); cursor: pointer; font-family: inherit; width: 44px; height: 44px; }
+  .drawer-body { overflow-y: auto; padding: 20px 26px 30px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  .drawer-note { font-size: 0.9rem; color: var(--soft); margin: 0; }
+  .pick { display: flex; gap: 14px; align-items: center; }
+  .pick img { width: 72px; height: 72px; object-fit: cover; background: var(--mat); padding: 4px; box-shadow: var(--shadow); }
+  .pick span { font-family: "Bodoni Moda", Georgia, serif; font-style: italic; font-size: 1.1rem; }
+  .field label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--soft); margin-bottom: 5px; font-weight: 700; }
+  .field select, .field input, .field textarea { width: 100%; padding: 10px 12px; font: inherit; font-size: 1rem; background: var(--mat); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; }
+  .field textarea { min-height: 70px; resize: vertical; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .slip-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent-ink); font-weight: 700; margin: 6px 0 0; padding-top: 16px; border-top: 1px dashed var(--line); }
+  .slip { list-style: none; margin: 0; padding: 0; }
+  .slip li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+  .slip .meta { color: var(--soft); font-size: 0.8rem; display: block; }
+  .slip .rm { background: none; border: 0; color: var(--magenta); font: inherit; font-size: 0.78rem; cursor: pointer; }
+  .slip-empty { color: var(--soft); font-size: 0.88rem; font-style: italic; margin: 0; }
+  .drawer .btn { width: 100%; text-align: center; }
+  .drawer .btn:disabled { opacity: 0.4; cursor: default; }
+  .sent { font-size: 0.85rem; color: var(--leaf); min-height: 1.3em; margin: 0; text-align: center; }
+  .chipcart { position: fixed; right: 20px; bottom: 56px; z-index: 45; display: none; }
+  .chipcart.show { display: block; }
+
+  /* scroll voyage */
+  #voyage { position: fixed; left: 0; right: 0; bottom: 0; height: 42px; z-index: 30; pointer-events: none; }
+  #voyage-line { position: absolute; left: 0; bottom: 5px; width: 100%; height: 12px; opacity: 0.45; }
+  #voyage-line path { stroke: var(--cobalt); stroke-width: 2; fill: none; }
+  #boat { position: absolute; bottom: 8px; left: 0; width: 36px; height: 30px; will-change: transform; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .dripbar span, .piece.pop, .sw .splat { animation: none; }
+    .frame, .btn, .drawer, .scrim, .hung img, .room .art, .sw .paint, .rehang .ic { transition: none; }
+    .frame:hover, .sw:hover .paint { transform: none; }
+  }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 32px; padding: 32px 0 44px; }
+    .salon-wrap { justify-self: start; }
+    .about-inner, .commission-inner { grid-template-columns: 1fr; gap: 36px; }
+    .studio { max-width: 340px; }
+    .lightbox.open { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; gap: 14px; padding: 58px 14px 16px; overflow-y: auto; align-items: stretch; }
+    #lb-img { max-height: 56vh; padding: 6px; }
+    .room { aspect-ratio: 4 / 5; max-height: 58vh; width: auto; height: 58vh; }
+    .room .sofa { width: 86%; }
+    .lb-close { top: 8px; right: 8px; }
+    .lb-prev, .lb-next { top: 8px; }
+    .lb-prev { left: 8px; }
+    .lb-next { left: 62px; }
+    .lb-info h3 { font-size: 1.45rem; margin: 6px 0 8px; }
+    .lb-info dl { margin-bottom: 14px; }
+    .lb-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .lb-actions .btn { margin: 0; padding: 12px 10px; font-size: 0.72rem; }
+    #moon { width: 120px; height: 120px; right: 3%; top: 14px; opacity: 0.6; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 18px; }
+    header .bar { padding: 18px 0 10px; }
+    .wordmark .name { font-size: 1.35rem; }
+    nav { width: 100%; overflow-x: auto; gap: 20px; scrollbar-width: none; margin: 0 -18px; padding: 0 18px; width: calc(100% + 36px); }
+    nav::-webkit-scrollbar, .chips::-webkit-scrollbar, .swatches::-webkit-scrollbar { display: none; }
+    .hero .lede { font-size: 1.05rem; margin-bottom: 22px; }
+    .btn { padding: 13px 20px; }
+    section { padding: 48px 0; }
+    .chips, .swatches { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -18px; padding: 2px 18px 6px; scroll-snap-type: x proximity; }
+    .chip, .sw { scroll-snap-align: start; }
+    .gallery { columns: 2; column-gap: 14px; }
+    .piece { margin-bottom: 22px; }
+    .frame { padding: 5px; }
+    .frame:hover { transform: none; }
+    .piece figcaption { margin-top: 8px; }
+    .piece .t { font-size: 0.95rem; }
+    .piece .m { display: none; }
+    .status { font-size: 0.72rem; gap: 5px; }
+    .steps { grid-template-columns: 1fr; }
+    .row2 { grid-template-columns: 1fr; }
+    .drawer { width: 100vw; }
+    .chipcart { right: 12px; bottom: 50px; }
+    blockquote { font-size: 1.15rem; }
+  }
+</style>
+
+<a class="skip" href="#collections">Skip to the paintings</a>
+<div class="dripbar" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+
+<header class="wrap">
+  <div class="bar">
+    <a class="wordmark" href="#top" id="top">
+      <span class="name display">Sandra <em>Añez</em> Powell</span>
+      <span class="sub">Painter &middot; Annapolis, Maryland</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#collections">Collections</a>
+      <a href="#about">About</a>
+      <a href="#commissions">Commissions</a>
+      <button type="button" data-open-slip>Prints</button>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <p class="label">Venezuelan-born painter &middot; Annapolis, Maryland</p>
+      <h1 class="display">Color that <em>refuses</em> to sit still.</h1>
+      <p class="lede">Sandra Añez Powell paints Chesapeake regattas, harbor moons, country portraits and women in full color &mdash; thick acrylic, quick brushwork and no shortage of joy.</p>
+      <div class="ctas">
+        <a class="btn" href="#collections">See the collections</a>
+        <a class="btn quiet" href="#commissions">Commission a painting</a>
+      </div>
+    </div>
+    <div class="salon-wrap">
+      <div class="salon" id="salon">
+        <figure class="hung big" data-slot="tall">
+          <div class="mat"><img src="{{img:s_hero_moonlight}}" alt="Acrylic painting: a lone sailboat on deep blue water beneath a huge swirling yellow moon" width="654" height="860" data-id="moonlight-sail"></div>
+          <figcaption><i>Moonlight Sail</i> &middot; Majesty of the Bay</figcaption>
+        </figure>
+        <figure class="hung" data-slot="any">
+          <div class="mat"><img src="{{img:d03_2}}" alt="Acrylic portrait: a young woman beneath a broad cream sombrero, dark eyes looking out" width="441" height="428" data-id="mi-gente-de-campo-no-3"></div>
+          <figcaption><i>Mi gente de campo No. 3</i></figcaption>
+        </figure>
+        <figure class="hung" data-slot="any">
+          <div class="mat"><img src="{{img:d07_2}}" alt="Acrylic painting: a mother and child cheek to cheek, wrapped in golden hair against orange stripes" width="507" height="463" data-id="divina-no-2"></div>
+          <figcaption><i>Divina No. 2</i></figcaption>
+        </figure>
+      </div>
+      <button type="button" class="rehang" id="rehang"><span class="ic" aria-hidden="true">&#8635;</span> Rehang the wall</button>
+    </div>
+  </div>
+</div>
+
+<section id="collections" class="wrap" style="padding-top:8px">
+  <div class="sec-head">
+    <p class="label">The work</p>
+    <h2 class="display">Six collections, one very full palette</h2>
+  </div>
+  <div class="filters">
+    <div>
+      <p class="rowlabel" id="lab-coll">Browse by collection</p>
+      <div class="chips" role="group" aria-labelledby="lab-coll"><!--CHIPS--></div>
+    </div>
+    <div>
+      <p class="rowlabel" id="lab-color">&hellip;or dip into a color</p>
+      <div class="swatches" role="group" aria-labelledby="lab-color"><!--SWATCHES--></div>
+    </div>
+    <div class="snap">
+      <p class="rowlabel">&hellip;or show us your room</p>
+      <label class="btn quiet" for="snap-file">Match my room&rsquo;s colors</label>
+      <input type="file" id="snap-file" accept="image/*" hidden>
+      <div class="snap-result" id="snap-result" hidden><span>Your room reads as</span><span id="snap-sw" class="snap-sw"></span><button type="button" class="clear" id="snap-clear">Clear</button></div>
+      <p class="snap-note">Snap or choose a photo of your sofa or wall. It never leaves your device.</p>
+    </div>
+  </div>
+  <div class="coll-intro" aria-live="polite">
+    <span class="cname" id="cname"></span><span class="gloss" id="cgloss"></span>
+    <p id="cintro"></p>
+  </div>
+  <div class="gallery" id="gallery"><!--PIECES--></div>
+  <p class="empty" id="empty" hidden>No paintings in this collection carry that color. <button type="button" class="clear" id="clear-color">Clear the color</button></p>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap about-inner">
+    <figure class="studio">
+      <div class="mat"><img src="{{img:d01_5}}" alt="Photograph of Sandra Añez Powell at her worktable, painting a blue canvas beneath a desk lamp, her paintings covering the wall behind her" width="480" height="640" loading="lazy"></div>
+      <figcaption>en el estudio</figcaption>
+    </figure>
+    <div>
+      <p class="label">About the artist</p>
+      <h2 class="display">Sandra Añez Powell</h2>
+      <p class="intro" style="margin-top:18px">Born in Venezuela, Sandra spent many years in Kentucky before making her home in Annapolis, Maryland, with her husband and two sons.</p>
+      <p>For a long time family, work and community were her whole life &mdash; until a friend asked about her hobbies and she realized she had none. She had always loved art, so she picked up a brush. Painting became her outlet from the stresses of the world, and then her language: color, figures, texture, feeling.</p>
+      <p>Today she paints the Chesapeake as a celebration &mdash; sails in colors no sailmaker ever stitched &mdash; alongside portraits, women drawn as monuments, flowers at the scale of a window, and abstracts where the paint simply plays.</p>
+      <blockquote>&ldquo;I transfer those feelings, images and emotions to a white canvas that is transformed into a unique and special <i>pedacito de arte</i> &mdash; a little piece of art. When I paint, I find joy.&rdquo;</blockquote>
+      <p class="sig" aria-label="Signature: S. Añez Powell">S. Añez Powell</p>
+      <div class="facts">
+        <span><b>Medium</b> Acrylic on canvas</span>
+        <span><b>Studio</b> Annapolis, MD</span>
+        <span><b>Languages</b> English &middot; Español</span>
+        <span><b>Every original</b> hand-signed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="commissions" class="commission">
+  <div class="wrap commission-inner">
+    <div>
+      <p class="label">Commissions</p>
+      <h2 class="display">Your boat. Your harbor. Your people.</h2>
+      <p class="intro">A regatta you raced, the view from your dock, a portrait of someone you love &mdash; painted in Sandra&rsquo;s color. Tell her the story and she&rsquo;ll take it from there.</p>
+      <a class="btn" id="commission-mail" href="#contact">Start a commission</a>
+    </div>
+    <ol class="steps">
+      <li><b>Talk it through</b><span>Share photos, the place and the feeling you want to keep. En inglés o en español.</span></li>
+      <li><b>Sketch &amp; palette</b><span>Sandra proposes a composition, size and colors before any paint goes down.</span></li>
+      <li><b>Paint</b><span>Built up in layers of acrylic on canvas, with progress photos along the way.</span></li>
+      <li><b>Signed &amp; delivered</b><span>Every commission is signed S.&nbsp;Añez Powell and delivered or shipped ready to hang.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="contact" class="night" style="padding:0">
+  <canvas id="moon" width="190" height="190" aria-hidden="true"></canvas>
+  <div class="wrap night-inner">
+    <p class="label">Prints, originals &amp; commissions</p>
+    <h2 class="display">Take one home</h2>
+    <p>Order a fine-art print of any painting, ask about an original, or join the collector list to hear first when new work leaves the easel. Nothing is charged online &mdash; Sandra confirms every order personally by email.</p>
+    <div class="ctas">
+      <button type="button" class="btn" data-open-slip>Order prints</button>
+      <a class="btn quiet" id="mail-original" href="#contact">Ask about an original</a>
+      <a class="btn quiet" id="mail-list" href="#contact">Join the collector list</a>
+    </div>
+    <p class="habla">Se habla español &middot; <i>escríbale a Sandra en su idioma.</i></p>
+  </div>
+  <footer class="wrap">
+    <span>&copy; 2026 Sandra Añez Powell &middot; Annapolis, Maryland</span>
+    <span>All paintings are original works, hand-signed by the artist</span>
+  </footer>
+</section>
+</main>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-labelledby="lb-title">
+  <div class="lb-stage" id="lb-stage">
+    <img id="lb-img" src="" alt="">
+    <div class="room" id="room">
+      <div class="art" id="room-art"><img id="room-img" src="" alt=""></div>
+      <svg class="sofa" viewBox="0 0 840 300" aria-hidden="true">
+        <rect x="40" y="40" width="760" height="150" rx="34" fill="#46505F"></rect>
+        <rect x="0" y="110" width="110" height="150" rx="34" fill="#3B4452"></rect>
+        <rect x="730" y="110" width="110" height="150" rx="34" fill="#3B4452"></rect>
+        <rect x="90" y="150" width="660" height="92" rx="22" fill="#525D6D"></rect>
+        <rect x="95" y="152" width="325" height="40" rx="18" fill="#5C6878"></rect>
+        <rect x="420" y="152" width="325" height="40" rx="18" fill="#5C6878"></rect>
+        <rect x="70" y="258" width="16" height="42" fill="#2A221B"></rect>
+        <rect x="754" y="258" width="16" height="42" fill="#2A221B"></rect>
+      </svg>
+      <p class="ruler" id="ruler"></p>
+    </div>
+  </div>
+  <div class="lb-info">
+    <p class="label" id="lb-coll"></p>
+    <h3 id="lb-title"></h3>
+    <dl>
+      <dt>Medium</dt><dd>Acrylic on canvas</dd>
+      <dt>Status</dt><dd id="lb-status"></dd>
+    </dl>
+    <div class="lb-actions">
+      <button type="button" class="btn" id="lb-order">Order a print</button>
+      <button type="button" class="btn quiet" id="lb-wall" aria-pressed="false">See it on a wall</button>
+    </div>
+    <div class="walltools" id="walltools" hidden>
+      <div class="seg" role="group" aria-label="Print size">
+        <button type="button" data-in="16" aria-pressed="false">16&Prime;</button>
+        <button type="button" data-in="24" aria-pressed="true">24&Prime;</button>
+        <button type="button" data-in="36" aria-pressed="false">36&Prime;</button>
+      </div>
+      <div class="walls" role="group" aria-label="Wall color">Wall
+        <button type="button" data-wall="#EEEAE0" style="background:#EEEAE0" aria-label="Gesso white" aria-pressed="true"></button>
+        <button type="button" data-wall="#B7C2AA" style="background:#B7C2AA" aria-label="Sage green" aria-pressed="false"></button>
+        <button type="button" data-wall="#E5C8BC" style="background:#E5C8BC" aria-label="Blush pink" aria-pressed="false"></button>
+        <button type="button" data-wall="#2C3A52" style="background:#2C3A52" aria-label="Harbor navy" aria-pressed="false"></button>
+      </div>
+      <p class="fine">Longest side shown above an 84&Prime; sofa. Ask Sandra for the original&rsquo;s actual size.</p>
+    </div>
+    <p class="fine" style="margin-top:12px"><span class="hint-mouse">Hover the painting to see the brushwork up close.</span><span class="hint-touch">Swipe the painting to browse.</span> <a id="lb-ask" href="#contact" style="color:#F0B24A">Ask about this painting</a></p>
+    <p class="lb-count" id="lb-count"></p>
+  </div>
+  <button type="button" class="lb-ctrl lb-close" aria-label="Close">&times;</button>
+  <button type="button" class="lb-ctrl lb-prev" aria-label="Previous painting">&larr;</button>
+  <button type="button" class="lb-ctrl lb-next" aria-label="Next painting">&rarr;</button>
+</div>
+<div class="loupe" id="loupe" aria-hidden="true"></div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Print order slip">
+  <div class="drawer-head"><h3>Order slip</h3><button type="button" class="x" id="drawer-x" aria-label="Close order slip">&times;</button></div>
+  <div class="drawer-body">
+    <p class="drawer-note">Choose a painting, size and finish. Your slip goes to Sandra as an email &mdash; she confirms price, shipping and framing personally before anything is paid.</p>
+    <div class="pick"><img id="pick-img" src="" alt=""><span id="pick-title"></span></div>
+    <div class="field"><label for="f-piece">Painting</label><select id="f-piece"></select></div>
+    <div class="row2">
+      <div class="field"><label for="f-size">Print size</label>
+        <select id="f-size"><option>8 &times; 10 in</option><option selected>11 &times; 14 in</option><option>16 &times; 20 in</option><option>Custom (describe in notes)</option></select></div>
+      <div class="field"><label for="f-finish">Finish</label>
+        <select id="f-finish"><option selected>Fine-art matte paper</option><option>Gallery-wrapped canvas</option></select></div>
+    </div>
+    <div class="field"><label for="f-qty">Quantity</label><select id="f-qty"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+    <button type="button" class="btn quiet" id="add-item">Add to order slip</button>
+    <p class="slip-title">Your order slip</p>
+    <ul class="slip" id="slip"></ul>
+    <p class="slip-empty" id="slip-empty">Nothing on the slip yet.</p>
+    <div class="field"><label for="f-name">Your name</label><input id="f-name" type="text" autocomplete="name"></div>
+    <div class="field"><label for="f-note">Notes (framing, custom size, questions&hellip;)</label><textarea id="f-note"></textarea></div>
+    <button type="button" class="btn" id="send-order" disabled>Send order by email</button>
+    <button type="button" class="btn quiet" id="copy-order">Copy order summary</button>
+    <p class="sent" id="sent"></p>
+  </div>
+</aside>
+<button type="button" class="btn chipcart" id="chipcart" data-open-slip>Order slip &middot; <span id="chip-n">0</span></button>
+
+<div id="voyage" aria-hidden="true">
+  <svg id="voyage-line" viewBox="0 0 1440 12" preserveAspectRatio="none"><path d=""></path></svg>
+  <svg id="boat" viewBox="0 0 40 34">
+    <path d="M6 26 L34 26 L29 32 L11 32 Z" fill="#4A2E17"></path>
+    <line x1="20" y1="6" x2="20" y2="26" stroke="#2A241B" stroke-width="1.6"></line>
+    <path d="M19 7 L19 24 L8 24 Z" fill="#C0507F"></path>
+    <path d="M21 4 L21 24 L33 24 Z" fill="#E2971B"></path>
+  </svg>
+</div>
+
+<script>
+  var ORDER_EMAIL = 'powelljohn9521@gmail.com'; /* swap for Sandra's address */
+  var COLLS = /*COLLS*/;
+  var COLORS = /*COLORS*/;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  function mailto(subject, body) {
+    return 'mailto:' + ORDER_EMAIL + '?subject=' + encodeURIComponent(subject) + (body ? '&body=' + encodeURIComponent(body) : '');
+  }
+  document.getElementById('mail-original').href = mailto('A question about an original — Sandra Añez Powell');
+  document.getElementById('mail-list').href = mailto('Please add me to Sandra’s collector list', 'Hello Sandra,\n\nPlease add me to your collector list so I hear about new paintings first.\n\nName:\nCity:\n');
+  document.getElementById('commission-mail').href = mailto('Commission inquiry — Sandra Añez Powell', 'Hello Sandra,\n\nI would love to commission a painting.\n\nSubject (boat, harbor, person…):\nSize I have in mind:\nTimeline:\n\nThank you!\n');
+
+  var pieces = Array.prototype.slice.call(document.querySelectorAll('.piece'));
+  function byId(id) { return pieces.filter(function (p) { return p.dataset.id === id; })[0]; }
+
+  /* ---------- filter by collection and by color ---------- */
+  var state = { coll: 'all', color: null, match: null };
+  var chips = document.querySelectorAll('.chip'), sws = document.querySelectorAll('.sw');
+  var gallery = document.getElementById('gallery');
+  function applyFilter(animate) {
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', !state.match && c.dataset.coll === state.coll ? 'true' : 'false'); });
+    sws.forEach(function (s) { s.setAttribute('aria-pressed', !state.match && s.dataset.color === state.color ? 'true' : 'false'); });
+    var order = state.match ? state.match.concat(pieces.filter(function (p) { return state.match.indexOf(p) < 0; })) : pieces;
+    order.forEach(function (p) { gallery.appendChild(p); });
+    var n = 0;
+    pieces.forEach(function (p) {
+      var show = state.match ? state.match.indexOf(p) > -1 :
+                 (state.coll === 'all' || p.dataset.coll === state.coll) &&
+                 (!state.color || (' ' + p.dataset.colors + ' ').indexOf(' ' + state.color + ' ') > -1);
+      p.hidden = !show;
+      if (show) {
+        n++;
+        if (animate && !still) { p.classList.remove('pop'); void p.offsetWidth; p.style.animationDelay = Math.min(n * 30, 400) + 'ms'; p.classList.add('pop'); }
+      }
+    });
+    var c = COLLS[state.coll];
+    if (state.match) {
+      document.getElementById('cname').textContent = 'Matched to your room';
+      document.getElementById('cgloss').textContent = '(' + n + ')';
+      document.getElementById('cintro').textContent = state.matchNote;
+    } else {
+      document.getElementById('cname').textContent = c.name;
+      document.getElementById('cgloss').textContent = state.color ? '· washed in ' + COLORS[state.color].name.toLowerCase() + ' (' + n + ')' : (c.gloss || '');
+      document.getElementById('cintro').textContent = c.intro;
+    }
+    document.getElementById('empty').hidden = n > 0;
+  }
+  function clearMatch() { state.match = null; document.getElementById('snap-result').hidden = true; document.getElementById('snap-file').value = ''; }
+  chips.forEach(function (c) { c.addEventListener('click', function () { clearMatch(); state.coll = c.dataset.coll; applyFilter(true); }); });
+  sws.forEach(function (s) {
+    s.addEventListener('click', function () {
+      if (state.match) { clearMatch(); state.color = null; }
+      state.color = state.color === s.dataset.color ? null : s.dataset.color;
+      if (state.color && !still) {
+        var sp = document.createElement('span'); sp.className = 'splat'; sp.style.background = COLORS[s.dataset.color].hex;
+        s.appendChild(sp); setTimeout(function () { sp.remove(); }, 600);
+      }
+      applyFilter(true);
+    });
+  });
+  document.getElementById('clear-color').addEventListener('click', function () { state.color = null; applyFilter(true); });
+  applyFilter(false);
+
+  /* ---------- match my room: read a photo's colors on-device, rank the paintings ---------- */
+  function family(r, g, b) {
+    var max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min, v = max / 255, s = max ? d / max : 0;
+    if (s < 0.18 || v < 0.2) return null;
+    var h = d === 0 ? 0 : max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    h = (h * 60 + 360) % 360;
+    for (var k in COLORS) {
+      if (COLORS[k].hues.some(function (rg) { return h >= rg[0] && h < rg[1]; })) return { k: k, w: s };
+    }
+    return null;
+  }
+  document.getElementById('snap-file').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function () {
+      var cv = document.createElement('canvas'), W = 64, H = Math.max(1, Math.round(64 * im.height / im.width));
+      cv.width = W; cv.height = H;
+      var ctx = cv.getContext('2d'); ctx.drawImage(im, 0, 0, W, H);
+      var px = ctx.getImageData(0, 0, W, H).data, weights = {}, total = 0;
+      for (var i = 0; i < px.length; i += 4) {
+        var f = family(px[i], px[i + 1], px[i + 2]);
+        if (f) { weights[f.k] = (weights[f.k] || 0) + f.w; total += f.w; }
+      }
+      URL.revokeObjectURL(url);
+      var fams = Object.keys(weights).sort(function (a, b) { return weights[b] - weights[a]; }).slice(0, 3);
+      var sw = document.getElementById('snap-sw'); sw.innerHTML = '';
+      var ranked;
+      if (!fams.length || total < W * H * 0.03) {
+        state.matchNote = 'Your room is beautifully neutral — so anything goes. Here are Sandra’s boldest, most colorful paintings.';
+        ranked = pieces.filter(function (p) { return p.dataset.colors.split(' ').length >= 3; }).slice(0, 12);
+        var sp = document.createElement('span'); sp.textContent = 'calm & neutral'; sw.appendChild(sp);
+      } else {
+        fams.forEach(function (k) { var b = document.createElement('span'); b.className = 'blob'; b.style.background = COLORS[k].hex; b.title = COLORS[k].name; sw.appendChild(b); });
+        state.matchNote = 'Paintings whose colors echo your ' + fams.map(function (k) { return COLORS[k].name.toLowerCase(); }).join(', ') + ' — best match first.';
+        ranked = pieces.map(function (p) {
+          var tags = p.dataset.colors.split(' '), score = 0;
+          tags.forEach(function (t, idx) { if (weights[t]) score += (weights[t] / total) * [1, 0.7, 0.5][idx]; });
+          return { p: p, s: score };
+        }).filter(function (x) { return x.s > 0; }).sort(function (a, b) { return b.s - a.s; }).slice(0, 12).map(function (x) { return x.p; });
+      }
+      state.match = ranked;
+      document.getElementById('snap-result').hidden = false;
+      applyFilter(true);
+      document.getElementById('cname').scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'center' });
+    };
+    im.src = url;
+  });
+  document.getElementById('snap-clear').addEventListener('click', function () { clearMatch(); applyFilter(true); });
+
+  /* ---------- rehang the hero wall ---------- */
+  var hungs = Array.prototype.slice.call(document.querySelectorAll('#salon .hung'));
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  document.getElementById('rehang').addEventListener('click', function () {
+    var current = hungs.map(function (h) { return h.querySelector('img').dataset.id; });
+    var tall = shuffle(pieces.filter(function (p) { var i = p.querySelector('img'); return i.height > i.width * 1.1 && current.indexOf(p.dataset.id) < 0; }));
+    var used = [tall[0].dataset.id];
+    var rest = shuffle(pieces.filter(function (p) { return used.indexOf(p.dataset.id) < 0 && current.indexOf(p.dataset.id) < 0; }));
+    var picks = [tall[0]];
+    for (var i = 0; picks.length < 3 && i < rest.length; i++) {
+      if (picks.every(function (q) { return q.dataset.coll !== rest[i].dataset.coll; })) picks.push(rest[i]);
+    }
+    hungs.forEach(function (h, k) {
+      var p = picks[k], src = p.querySelector('img');
+      h.classList.add('swap');
+      setTimeout(function () {
+        var img = h.querySelector('img');
+        img.src = src.src; img.alt = src.alt; img.width = src.width; img.height = src.height; img.dataset.id = p.dataset.id;
+        h.querySelector('figcaption').innerHTML = '';
+        var i = document.createElement('i'); i.textContent = p.dataset.title; h.querySelector('figcaption').appendChild(i);
+        h.classList.remove('swap');
+      }, still ? 0 : 320 + k * 90);
+    });
+  });
+  hungs.forEach(function (h) {
+    h.querySelector('.mat').addEventListener('click', function () { var p = byId(h.querySelector('img').dataset.id); if (p) { state.color = null; state.coll = 'all'; applyFilter(false); showLb(p); } });
+  });
+
+  /* ---------- lightbox ---------- */
+  var lb = document.getElementById('lb'), stage = document.getElementById('lb-stage'), lbImg = document.getElementById('lb-img');
+  var lbIdx = 0, lastFocus = null, current = null;
+  function visible() { return pieces.filter(function (p) { return !p.hidden; }); }
+  function showLb(p) {
+    var list = visible(); lbIdx = list.indexOf(p); current = p;
+    var img = p.querySelector('img');
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    document.getElementById('room-img').src = img.src;
+    document.getElementById('lb-title').textContent = p.dataset.title;
+    document.getElementById('lb-coll').textContent = COLLS[p.dataset.coll].name;
+    document.getElementById('lb-status').textContent = p.dataset.status;
+    document.getElementById('lb-count').textContent = (lbIdx + 1) + ' of ' + list.length;
+    document.getElementById('lb-ask').href = mailto('About “' + p.dataset.title + '” — Sandra Añez Powell', 'Hello Sandra,\n\nI’d love to know more about “' + p.dataset.title + '” (' + COLLS[p.dataset.coll].name + '). Is the original available, and what size is it?\n');
+    lb.dataset.id = p.dataset.id;
+    if (!lb.classList.contains('open')) { lastFocus = document.activeElement; lb.classList.add('open'); document.body.style.overflow = 'hidden'; lb.querySelector('.lb-close').focus(); }
+    placeArt();
+  }
+  function stepLb(d) { var list = visible(); if (list.length) showLb(list[(lbIdx + d + list.length) % list.length]); }
+  function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; hideLoupe(); if (lastFocus) lastFocus.focus(); }
+  pieces.forEach(function (p) { p.querySelector('.frame').addEventListener('click', function () { showLb(p); }); });
+  lb.querySelector('.lb-close').addEventListener('click', closeLb);
+  lb.querySelector('.lb-prev').addEventListener('click', function () { stepLb(-1); });
+  lb.querySelector('.lb-next').addEventListener('click', function () { stepLb(1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === stage) closeLb(); });
+  document.getElementById('lb-order').addEventListener('click', function () { closeLb(); openDrawer(lb.dataset.id); });
+
+  /* swipe to browse on touch screens */
+  var sx = null, sy = null;
+  stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) stepLb(dx < 0 ? 1 : -1);
+    sx = sy = null;
+  }, { passive: true });
+
+  /* brushwork loupe for mouse users */
+  var loupe = document.getElementById('loupe');
+  function hideLoupe() { loupe.style.display = 'none'; }
+  if (finePointer) {
+    lbImg.addEventListener('mousemove', function (e) {
+      var r = lbImg.getBoundingClientRect(), z = 2.6, x = e.clientX - r.left, y = e.clientY - r.top;
+      loupe.style.display = 'block';
+      loupe.style.backgroundImage = 'url("' + lbImg.src + '")';
+      loupe.style.backgroundSize = (r.width * z) + 'px ' + (r.height * z) + 'px';
+      loupe.style.backgroundPosition = (90 - x * z) + 'px ' + (90 - y * z) + 'px';
+      loupe.style.left = (e.clientX - 90) + 'px';
+      loupe.style.top = (e.clientY - 90) + 'px';
+    });
+    lbImg.addEventListener('mouseleave', hideLoupe);
+  }
+
+  /* see it on a wall */
+  var wallBtn = document.getElementById('lb-wall'), tools = document.getElementById('walltools');
+  var room = document.getElementById('room'), art = document.getElementById('room-art'), sizeIn = 24;
+  function placeArt() {
+    if (!stage.classList.contains('walled') || !current) return;
+    var img = current.querySelector('img'), ratio = img.width / img.height;
+    var sofaW = room.clientWidth * (room.clientWidth < room.clientHeight ? 0.86 : 0.56);
+    var longPx = sofaW * sizeIn / 84, w = ratio >= 1 ? longPx : longPx * ratio, h = ratio >= 1 ? longPx / ratio : longPx;
+    var sofaTop = room.clientHeight * 0.11 + sofaW * 300 / 840 * 0.87;
+    art.style.width = w + 'px'; art.style.height = h + 'px';
+    art.style.bottom = Math.min(sofaTop + room.clientHeight * 0.06, room.clientHeight - h - 12) + 'px';
+    document.getElementById('ruler').textContent = sizeIn + '″ longest side · 84″ sofa';
+  }
+  wallBtn.addEventListener('click', function () {
+    var on = !stage.classList.contains('walled');
+    stage.classList.toggle('walled', on); tools.hidden = !on;
+    wallBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    wallBtn.textContent = on ? 'Back to the painting' : 'See it on a wall';
+    hideLoupe(); placeArt();
+  });
+  tools.querySelectorAll('[data-in]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      sizeIn = +b.dataset.in;
+      tools.querySelectorAll('[data-in]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      placeArt();
+    });
+  });
+  tools.querySelectorAll('[data-wall]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      room.style.setProperty('--wall', b.dataset.wall);
+      tools.querySelectorAll('[data-wall]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
+  });
+  window.addEventListener('resize', placeArt);
+
+  /* ---------- order slip ---------- */
+  var drawer = document.getElementById('drawer'), scrim = document.getElementById('scrim');
+  var sel = document.getElementById('f-piece'), slip = [];
+  pieces.forEach(function (p) {
+    var o = document.createElement('option'); o.value = p.dataset.id; o.textContent = p.dataset.title; sel.appendChild(o);
+  });
+  function syncPick() {
+    var p = byId(sel.value), img = p.querySelector('img');
+    document.getElementById('pick-img').src = img.src;
+    document.getElementById('pick-img').alt = img.alt;
+    document.getElementById('pick-title').textContent = p.dataset.title;
+  }
+  sel.addEventListener('change', syncPick);
+  function openDrawer(id) { if (id) sel.value = id; syncPick(); drawer.classList.add('open'); scrim.classList.add('open'); sel.focus(); }
+  function closeDrawer() { drawer.classList.remove('open'); scrim.classList.remove('open'); }
+  scrim.addEventListener('click', closeDrawer);
+  document.getElementById('drawer-x').addEventListener('click', closeDrawer);
+  document.querySelectorAll('[data-open-slip]').forEach(function (b) { b.addEventListener('click', function () { openDrawer(); }); });
+
+  var slipEl = document.getElementById('slip'), sendBtn = document.getElementById('send-order');
+  function renderSlip() {
+    slipEl.innerHTML = '';
+    slip.forEach(function (it, i) {
+      var li = document.createElement('li'), left = document.createElement('span'), b = document.createElement('strong'), meta = document.createElement('span');
+      b.textContent = it.title; meta.className = 'meta'; meta.textContent = it.size + ' · ' + it.finish + ' · qty ' + it.qty;
+      left.appendChild(b); left.appendChild(meta);
+      var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'rm'; rm.textContent = 'Remove';
+      rm.addEventListener('click', function () { slip.splice(i, 1); renderSlip(); });
+      li.appendChild(left); li.appendChild(rm); slipEl.appendChild(li);
+    });
+    document.getElementById('slip-empty').hidden = slip.length > 0;
+    sendBtn.disabled = !slip.length;
+    document.getElementById('chip-n').textContent = slip.length;
+    document.getElementById('chipcart').classList.toggle('show', slip.length > 0);
+  }
+  document.getElementById('add-item').addEventListener('click', function () {
+    slip.push({ title: byId(sel.value).dataset.title, size: document.getElementById('f-size').value, finish: document.getElementById('f-finish').value, qty: document.getElementById('f-qty').value });
+    document.getElementById('sent').textContent = 'Added to your slip.';
+    renderSlip();
+  });
+  function orderText() {
+    var lines = ['Hello Sandra,', '', 'I would like to order these prints:', ''];
+    slip.forEach(function (it, i) { lines.push((i + 1) + '. “' + it.title + '” — ' + it.size + ', ' + it.finish + ', quantity ' + it.qty); });
+    var note = document.getElementById('f-note').value.trim(), name = document.getElementById('f-name').value.trim();
+    if (note) lines.push('', 'Notes: ' + note);
+    lines.push('', 'Please let me know pricing and shipping.', '');
+    if (name) lines.push(name);
+    return lines.join('\n');
+  }
+  sendBtn.addEventListener('click', function () {
+    if (!slip.length) return;
+    window.location.href = mailto('Print order — Sandra Añez Powell', orderText());
+    document.getElementById('sent').textContent = 'Your email app should open with the order — just press send.';
+  });
+  document.getElementById('copy-order').addEventListener('click', function () {
+    var txt = 'To: ' + ORDER_EMAIL + '\n\n' + orderText();
+    function done() { document.getElementById('sent').textContent = 'Order summary copied — paste it into any email or message.'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, done); else done();
+  });
+  renderSlip();
+
+  document.addEventListener('keydown', function (e) {
+    if (drawer.classList.contains('open')) { if (e.key === 'Escape') closeDrawer(); return; }
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') stepLb(-1);
+    if (e.key === 'ArrowRight') stepLb(1);
+  });
+
+  /* ---------- harbor moon, painted once ---------- */
+  (function () {
+    var cv = document.getElementById('moon'), ctx = cv.getContext('2d'), s = cv.width, c = s / 2;
+    var cols = ['#F7D879', '#FFF3D6', '#F0B24A', '#FFFFFF'];
+    ctx.lineCap = 'round';
+    for (var i = 0; i < 120; i++) {
+      var t = i / 120, r = s * 0.46 * (1 - t * 0.82) * (0.8 + Math.random() * 0.2), a0 = Math.random() * Math.PI * 2;
+      ctx.beginPath(); ctx.arc(c, c, r, a0, a0 + 0.5 + Math.random() * 1.7);
+      ctx.strokeStyle = cols[Math.floor(Math.random() * cols.length)];
+      ctx.lineWidth = 2 + Math.random() * 6; ctx.globalAlpha = 0.25 + Math.random() * 0.5; ctx.stroke();
+    }
+  })();
+
+  /* ---------- the little boat sails as you scroll ---------- */
+  (function () {
+    var line = document.querySelector('#voyage-line path'), d = 'M0 6';
+    for (var x = 0; x <= 1440; x += 60) d += ' Q' + (x + 30) + ' ' + (x % 120 === 0 ? 1 : 11) + ' ' + (x + 60) + ' 6';
+    line.setAttribute('d', d);
+    var boat = document.getElementById('boat'), ticking = false;
+    function place() {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight, p = max > 0 ? window.scrollY / max : 0;
+      var x = p * (window.innerWidth - 52) + 8;
+      boat.style.transform = 'translateX(' + x + 'px)' + (still ? '' : ' rotate(' + Math.sin(p * 14) * 4 + 'deg)');
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(place); } }, { passive: true });
+    window.addEventListener('resize', place);
+    place();
+  })();
+</script>

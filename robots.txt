@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thejohncarter-ai.github.io/sandra-anez-powell/sitemap.xml
