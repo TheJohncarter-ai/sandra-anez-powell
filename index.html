@@ -357,6 +357,28 @@
   .lb-prev { left: 1.5vw; top: 50%; }
   .lb-next { left: calc(100% - 300px - 4vw - 36px - 58px); top: 50%; }
 
+  /* mail panel: a mailto link does nothing when no mail app is registered,
+     so every "email Sandra" action opens this instead */
+  .maildlg {
+    position: fixed; z-index: 65; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: min(560px, 94vw); max-height: 90vh; overflow-y: auto;
+    background: var(--ground); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 10px; box-shadow: 0 30px 80px rgba(9, 12, 20, 0.45); padding: 26px 26px 22px;
+  }
+  .maildlg[hidden] { display: none; }
+  .maildlg h3 { font-style: italic; font-weight: 500; font-size: 1.6rem; margin: 0 0 6px; }
+  .md-x { position: absolute; top: 8px; right: 10px; }
+  .md-to { font-size: 0.9rem; color: var(--soft); margin: 0 0 18px; }
+  .maildlg .rowlabel { margin: 14px 0 5px; }
+  .maildlg input, .maildlg textarea {
+    width: 100%; padding: 10px 12px; font: inherit; font-size: 0.98rem;
+    background: var(--mat); color: var(--ink); border: 1px solid var(--line); border-radius: 4px;
+  }
+  .maildlg textarea { resize: vertical; }
+  .md-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .md-actions .btn { flex: 1 1 auto; text-align: center; }
+  @media (max-width: 560px) { .md-actions .btn { flex-basis: 100%; } }
+
   /* order slip drawer */
   .scrim { position: fixed; inset: 0; background: rgba(9, 12, 20, 0.5); z-index: 58; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
   .scrim.open { opacity: 1; pointer-events: auto; }
@@ -714,6 +736,22 @@
 </div>
 <div class="loupe" id="loupe" aria-hidden="true"></div>
 
+<div class="maildlg" id="maildlg" role="dialog" aria-modal="true" aria-labelledby="md-title" hidden>
+  <button type="button" class="x md-x" id="md-x" aria-label="Close">&times;</button>
+  <h3 id="md-title" class="display">Send this to Sandra</h3>
+  <p class="md-to">To <b id="md-to"></b></p>
+  <label class="rowlabel" for="md-subject">Subject</label>
+  <input id="md-subject" type="text" readonly>
+  <label class="rowlabel" for="md-body">Message</label>
+  <textarea id="md-body" rows="8"></textarea>
+  <div class="md-actions">
+    <button type="button" class="btn" id="md-copy">Copy message</button>
+    <a class="btn quiet" id="md-gmail" target="_blank" rel="noopener">Open in Gmail</a>
+    <a class="btn quiet" id="md-app">Open mail app</a>
+  </div>
+  <p class="sent" id="md-note"></p>
+</div>
+
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Print order slip">
   <div class="drawer-head"><h3>Order slip</h3><button type="button" class="x" id="drawer-x" aria-label="Close order slip">&times;</button></div>
@@ -763,10 +801,46 @@
     return 'mailto:' + ORDER_EMAIL + '?bcc=' + encodeURIComponent(BCC_EMAIL) +
       '&subject=' + encodeURIComponent(subject) + (body ? '&body=' + encodeURIComponent(body) : '');
   }
-  document.getElementById('mail-original').href = mailto('A question about an original — Sandra Añez Powell');
-  document.getElementById('mail-list').href = mailto('Please add me to Sandra’s collector list', 'Hello Sandra,\n\nPlease add me to your collector list so I hear about new paintings first.\n\nName:\nCity:\n');
-  document.getElementById('workshop-mail').href = mailto('Painting workshop inquiry — Art in Action', 'Hello Sandra,\n\nI’d like to ask about a painting workshop.\n\nGroup (company, school, community group…):\nRoughly how many people:\nWhere:\nDate you have in mind:\nEnglish or Spanish:\n\nThank you!\n');
-  document.getElementById('commission-mail').href = mailto('Commission inquiry — Sandra Añez Powell', 'Hello Sandra,\n\nI would love to commission a painting.\n\nSubject (boat, harbor, person…):\nSize I have in mind:\nTimeline:\n\nThank you!\n');
+
+  /* Plenty of people have no mail app registered, and then a mailto link does
+     nothing at all. Every email action opens this panel instead. */
+  function openMail(subject, body) {
+    var dlg = document.getElementById('maildlg');
+    document.getElementById('md-to').textContent = ORDER_EMAIL + '  (copy to ' + BCC_EMAIL + ')';
+    document.getElementById('md-subject').value = subject;
+    document.getElementById('md-body').value = body || '';
+    document.getElementById('md-gmail').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' +
+      encodeURIComponent(ORDER_EMAIL) + '&bcc=' + encodeURIComponent(BCC_EMAIL) +
+      '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body || '');
+    document.getElementById('md-app').href = mailto(subject, body);
+    document.getElementById('md-note').textContent = '';
+    dlg.hidden = false;
+    document.getElementById('scrim').classList.add('open');
+    document.getElementById('md-copy').focus();
+  }
+  function closeMail() {
+    document.getElementById('maildlg').hidden = true;
+    if (!document.getElementById('drawer').classList.contains('open')) {
+      document.getElementById('scrim').classList.remove('open');
+    }
+  }
+  function wireMail(id, subject, body) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.href = mailto(subject, body);                 /* still works for copy-link / long-press */
+    el.addEventListener('click', function (e) { e.preventDefault(); openMail(subject, body); });
+  }
+  document.getElementById('md-x').addEventListener('click', closeMail);
+  document.getElementById('md-copy').addEventListener('click', function () {
+    var txt = 'To: ' + ORDER_EMAIL + '\nBcc: ' + BCC_EMAIL +
+      '\nSubject: ' + document.getElementById('md-subject').value + '\n\n' + document.getElementById('md-body').value;
+    function done() { document.getElementById('md-note').textContent = 'Copied — paste it into any email, WhatsApp or message.'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, done); else done();
+  });
+  wireMail('mail-original', 'A question about an original — Sandra Añez Powell', 'Hello Sandra,\n\nI’d like to ask about one of your original paintings.\n\nWhich painting:\nQuestion:\n');
+  wireMail('mail-list','Please add me to Sandra’s collector list', 'Hello Sandra,\n\nPlease add me to your collector list so I hear about new paintings first.\n\nName:\nCity:\n');
+  wireMail('workshop-mail','Painting workshop inquiry — Art in Action', 'Hello Sandra,\n\nI’d like to ask about a painting workshop.\n\nGroup (company, school, community group…):\nRoughly how many people:\nWhere:\nDate you have in mind:\nEnglish or Spanish:\n\nThank you!\n');
+  wireMail('commission-mail','Commission inquiry — Sandra Añez Powell', 'Hello Sandra,\n\nI would love to commission a painting.\n\nSubject (boat, harbor, person…):\nSize I have in mind:\nTimeline:\n\nThank you!\n');
 
   var pieces = Array.prototype.slice.call(document.querySelectorAll('.piece'));
   function byId(id) { return pieces.filter(function (p) { return p.dataset.id === id; })[0]; }
@@ -900,7 +974,7 @@
 
   /* ---------- lightbox ---------- */
   var lb = document.getElementById('lb'), stage = document.getElementById('lb-stage'), lbImg = document.getElementById('lb-img');
-  var lbIdx = 0, lastFocus = null, current = null;
+  var lbIdx = 0, lastFocus = null, current = null, askSubject = '', askBody = '';
   function visible() { return pieces.filter(function (p) { return !p.hidden; }); }
   function showLb(p) {
     var list = visible(); lbIdx = list.indexOf(p); current = p;
@@ -911,7 +985,9 @@
     document.getElementById('lb-coll').textContent = COLLS[p.dataset.coll].name;
     document.getElementById('lb-status').textContent = p.dataset.status;
     document.getElementById('lb-count').textContent = (lbIdx + 1) + ' of ' + list.length;
-    document.getElementById('lb-ask').href = mailto('About “' + p.dataset.title + '” — Sandra Añez Powell', 'Hello Sandra,\n\nI’d love to know more about “' + p.dataset.title + '” (' + COLLS[p.dataset.coll].name + '). Is the original available, and what size is it?\n');
+    askSubject = 'About “' + p.dataset.title + '” — Sandra Añez Powell';
+    askBody = 'Hello Sandra,\n\nI’d love to know more about “' + p.dataset.title + '” (' + COLLS[p.dataset.coll].name + '). Is the original available, and what size is it?\n';
+    document.getElementById('lb-ask').href = mailto(askSubject, askBody);
     lb.dataset.id = p.dataset.id;
     if (!lb.classList.contains('open')) { lastFocus = document.activeElement; lb.classList.add('open'); document.body.style.overflow = 'hidden'; lb.querySelector('.lb-close').focus(); }
     placeArt();
@@ -929,6 +1005,7 @@
   lb.querySelector('.lb-next').addEventListener('click', function () { stepLb(1); });
   lb.addEventListener('click', function (e) { if (e.target === lb || e.target === stage) closeLb(); });
   document.getElementById('lb-order').addEventListener('click', function () { closeLb(); openDrawer(lb.dataset.id); });
+  document.getElementById('lb-ask').addEventListener('click', function (e) { e.preventDefault(); closeLb(); openMail(askSubject, askBody); });
 
   /* swipe to browse on touch screens */
   var sx = null, sy = null;
@@ -1007,7 +1084,7 @@
   sel.addEventListener('change', syncPick);
   function openDrawer(id) { if (id) sel.value = id; syncPick(); drawer.classList.add('open'); scrim.classList.add('open'); sel.focus(); }
   function closeDrawer() { drawer.classList.remove('open'); scrim.classList.remove('open'); }
-  scrim.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', function () { closeMail(); closeDrawer(); });
   document.getElementById('drawer-x').addEventListener('click', closeDrawer);
   document.querySelectorAll('[data-open-slip]').forEach(function (b) { b.addEventListener('click', function () { openDrawer(); }); });
 
@@ -1043,8 +1120,8 @@
   }
   sendBtn.addEventListener('click', function () {
     if (!slip.length) return;
-    window.location.href = mailto('Print order — Sandra Añez Powell', orderText());
-    document.getElementById('sent').textContent = 'Your email app should open with the order — just press send.';
+    closeDrawer();
+    openMail('Print order — Sandra Añez Powell', orderText());
   });
   document.getElementById('copy-order').addEventListener('click', function () {
     var txt = 'To: ' + ORDER_EMAIL + '\nBcc: ' + BCC_EMAIL + '\n\n' + orderText();
@@ -1054,6 +1131,7 @@
   renderSlip();
 
   document.addEventListener('keydown', function (e) {
+    if (!document.getElementById('maildlg').hidden) { if (e.key === 'Escape') closeMail(); return; }
     if (drawer.classList.contains('open')) { if (e.key === 'Escape') closeDrawer(); return; }
     if (!lb.classList.contains('open')) return;
     if (e.key === 'Escape') closeLb();
