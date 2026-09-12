@@ -238,6 +238,18 @@
   .facts { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 26px; padding: 16px 0 0; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--soft); }
   .facts b { color: var(--ink); font-weight: 500; }
 
+  /* workshops */
+  .workshops { background: var(--panel); }
+  .work-head { display: grid; grid-template-columns: 1.15fr 1fr; gap: 20px 56px; align-items: end; margin-bottom: 34px; }
+  .work-lede { color: var(--soft); font-size: 1.08rem; margin: 0; max-width: 30rem; }
+  .who { list-style: none; margin: 0 0 34px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 22px 28px; }
+  .who li { padding-top: 14px; border-top: 2px solid var(--accent); }
+  .who b { display: block; font-size: 1.02rem; margin-bottom: 4px; }
+  .who span { color: var(--soft); font-size: 0.93rem; }
+  .work-why { display: grid; grid-template-columns: 1.6fr auto; gap: 32px; align-items: center; padding-top: 26px; border-top: 1px solid var(--line); }
+  .work-why p { margin: 0; color: var(--soft); max-width: 44rem; }
+  @media (max-width: 900px) { .work-head, .work-why { grid-template-columns: 1fr; } .work-why { gap: 20px; justify-items: start; } }
+
   /* commission */
   .commission-inner { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
   .commission .intro { color: var(--soft); max-width: 30rem; margin: 16px 0 26px; }
@@ -405,6 +417,7 @@
     <nav aria-label="Main">
       <a href="#collections">Collections</a>
       <a href="#about">About</a>
+      <a href="#workshops">Workshops</a>
       <a href="#commissions">Commissions</a>
       <button type="button" data-open-slip>Prints</button>
       <a href="#contact">Contact</a>
@@ -494,6 +507,29 @@
         <span><b>Languages</b> English &middot; Español</span>
         <span><b>Every original</b> hand-signed</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="workshops" class="workshops">
+  <div class="wrap">
+    <div class="work-head">
+      <div>
+        <p class="label">Art in Action</p>
+        <h2 class="display">Painting workshops that build connection, confidence and community</h2>
+      </div>
+      <p class="work-lede">Sandra brings the paint, the canvases and the encouragement to your group. Nobody needs to have painted before &mdash; that is rather the point. <i>En inglés o en español.</i></p>
+    </div>
+    <ul class="who">
+      <li><b>Teams at work</b><span>Team building that gets people talking, away from the meeting room.</span></li>
+      <li><b>Community groups &amp; nonprofits</b><span>Creative sessions built around connection and wellbeing.</span></li>
+      <li><b>Women&rsquo;s &amp; Latino groups</b><span>Bilingual sessions rooted in Sandra&rsquo;s own community work.</span></li>
+      <li><b>Schools &amp; after-school</b><span>Hands-on painting for students, at their own scale.</span></li>
+      <li><b>Celebrations</b><span>Birthdays, showers and reunions, with a painting to take home.</span></li>
+    </ul>
+    <div class="work-why">
+      <p>Creative, hands-on art activities are a proven way to build trust, boost emotional wellbeing and spark joy in a group &mdash; turning collaboration into a shared, memorable experience. Art-based sessions break down formal barriers, encourage natural conversation, and create a safe space for expression.</p>
+      <a class="btn" id="workshop-mail" href="#contact">Ask about a workshop</a>
     </div>
   </div>
 </section>
@@ -636,6 +672,7 @@
   }
   document.getElementById('mail-original').href = mailto('A question about an original — Sandra Añez Powell');
   document.getElementById('mail-list').href = mailto('Please add me to Sandra’s collector list', 'Hello Sandra,\n\nPlease add me to your collector list so I hear about new paintings first.\n\nName:\nCity:\n');
+  document.getElementById('workshop-mail').href = mailto('Painting workshop inquiry — Art in Action', 'Hello Sandra,\n\nI’d like to ask about a painting workshop.\n\nGroup (company, school, community group…):\nRoughly how many people:\nWhere:\nDate you have in mind:\nEnglish or Spanish:\n\nThank you!\n');
   document.getElementById('commission-mail').href = mailto('Commission inquiry — Sandra Añez Powell', 'Hello Sandra,\n\nI would love to commission a painting.\n\nSubject (boat, harbor, person…):\nSize I have in mind:\nTimeline:\n\nThank you!\n');
 
   var pieces = Array.prototype.slice.call(document.querySelectorAll('.piece'));
