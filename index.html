@@ -128,6 +128,22 @@
   }
   nav a:hover, nav button:hover { color: var(--ink); }
 
+  /* sound toggle: silent until the visitor asks for it */
+  .soundbtn {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+    font: inherit; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--soft); background: transparent; border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px;
+  }
+  .soundbtn:hover { color: var(--ink); border-color: var(--ink); }
+  .soundbtn .note { font-size: 0.95rem; line-height: 1; }
+  .soundbtn[aria-pressed="true"] { color: var(--accent-ink); border-color: var(--accent); }
+  .soundbtn[aria-pressed="true"] .note { animation: hum 2.4s ease-in-out infinite; }
+  @keyframes hum { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+  @media (prefers-reduced-motion: reduce) { .soundbtn[aria-pressed="true"] .note { animation: none; } }
+  footer .credit { flex-basis: 100%; text-transform: none; letter-spacing: 0; font-size: 0.75rem; opacity: 0.75; }
+  footer .credit a { color: inherit; }
+
   /* hero: a salon hang that states her range */
   .hero { display: grid; grid-template-columns: 1fr 1.08fr; gap: 64px; align-items: center; padding: 56px 0 72px; }
   .hero h1 {
@@ -447,6 +463,7 @@
       <a href="#commissions">Commissions</a>
       <button type="button" data-open-slip>Prints</button>
       <a href="#contact">Contact</a>
+      <button type="button" id="sound" class="soundbtn" aria-pressed="false"><span class="note" aria-hidden="true">&#9834;</span><span id="sound-label">Sound on</span></button>
     </nav>
   </div>
 </header>
@@ -640,6 +657,7 @@
   <footer class="wrap">
     <span>&copy; 2026 Sandra Añez Powell &middot; Annapolis, Maryland</span>
     <span>All paintings are original works, hand-signed by the artist</span>
+    <span class="credit">Music: &ldquo;Shores of Avalon&rdquo;, &ldquo;Lobby Time&rdquo;, &ldquo;Evening Fall (Harp)&rdquo; by Kevin MacLeod (incompetech.com), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. &ldquo;Nacional Joropo&rdquo; &mdash; Lionel Belasco Orchestra, public domain.</span>
   </footer>
 </section>
 </main>
@@ -784,6 +802,7 @@
       document.getElementById('cintro').textContent = c.intro;
     }
     document.getElementById('empty').hidden = n > 0;
+    if (window.__collTrack) window.__collTrack(state.coll);
   }
   function clearMatch() { state.match = null; document.getElementById('snap-result').hidden = true; document.getElementById('snap-file').value = ''; }
   chips.forEach(function (c) { c.addEventListener('click', function () { clearMatch(); state.coll = c.dataset.coll; applyFilter(true); }); });
@@ -1041,6 +1060,88 @@
     if (e.key === 'ArrowLeft') stepLb(-1);
     if (e.key === 'ArrowRight') stepLb(1);
   });
+
+  /* ---------- gallery sound: silent until asked for, one track per room ---------- */
+  var MUSIC = {"sail": {"src": "audio/sail.web.mp3"}, "portraits": {"src": "audio/portraits.web.mp3"}, "workshops": {"src": "audio/workshops.web.mp3"}, "night": {"src": "audio/night.web.mp3"}};
+  (function () {
+    var btn = document.getElementById('sound');
+    if (!MUSIC || !btn) return;                     /* no music in the offline copy */
+    var label = document.getElementById('sound-label');
+    var els = {}, currentKey = null, on = false, VOL = 0.3;
+    var SECTIONS = [['#collections', 'sail'], ['#about', 'portraits'], ['#workshops', 'workshops'],
+                    ['#commissions', 'workshops'], ['#contact', 'night']];
+
+    function track(key) {
+      if (!els[key]) {
+        var a = new Audio();
+        a.src = MUSIC[key].src; a.loop = true; a.preload = 'none'; a.volume = 0;
+        els[key] = a;
+      }
+      return els[key];
+    }
+    function fade(a, to, ms, then) {
+      var from = a.volume, t0 = performance.now();
+      (function step(now) {
+        var p = Math.min(1, (now - t0) / ms);
+        a.volume = Math.max(0, Math.min(1, from + (to - from) * p));
+        if (p < 1) requestAnimationFrame(step); else if (then) then();
+      })(t0);
+    }
+    function collKey() {
+      var c = document.querySelector('.chip[aria-pressed="true"]');
+      c = c && c.dataset.coll;
+      return (c === 'campo' || c === 'divina' || c === 'private') ? 'portraits' : 'sail';
+    }
+    function pick() {
+      var best = null;
+      SECTIONS.forEach(function (s) {
+        var el = document.querySelector(s[0]);
+        if (!el) return;
+        var r = el.getBoundingClientRect();
+        var vis = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+        if (vis > 0 && (!best || vis > best.v)) best = { v: vis, k: s[1], id: el.id };
+      });
+      if (!best) return 'sail';
+      return best.id === 'collections' ? collKey() : best.k;
+    }
+    function go(key) {
+      if (!on || !MUSIC[key] || key === currentKey) return;
+      var prev = currentKey ? els[currentKey] : null;
+      currentKey = key;
+      var a = track(key), p = a.play();
+      if (p && p.catch) p.catch(function () {});
+      fade(a, VOL, 1400);
+      if (prev) fade(prev, 0, 1400, function () { prev.pause(); });
+    }
+    function setOn(v) {
+      on = v;
+      btn.setAttribute('aria-pressed', v ? 'true' : 'false');
+      label.textContent = v ? 'Sound off' : 'Sound on';
+      try { localStorage.setItem('sap-sound', v ? '1' : '0'); } catch (e) {}
+    }
+    btn.addEventListener('click', function () {
+      if (on) {
+        setOn(false); currentKey = null;
+        Object.keys(els).forEach(function (k) { var a = els[k]; fade(a, 0, 500, function () { a.pause(); }); });
+      } else { setOn(true); go(pick()); }
+    });
+    var tick = false;
+    window.addEventListener('scroll', function () {
+      if (tick || !on) return;
+      tick = true;
+      requestAnimationFrame(function () { tick = false; go(pick()); });
+    }, { passive: true });
+    window.__collTrack = function () { if (on) go(pick()); };
+
+    /* returning visitor who had sound on: browsers may still refuse without a gesture */
+    try {
+      if (localStorage.getItem('sap-sound') === '1') {
+        var k = pick(), a = track(k), p = a.play();
+        if (p && p.then) p.then(function () { on = true; currentKey = k; setOn(true); fade(a, VOL, 1400); })
+                          .catch(function () { setOn(false); });
+      }
+    } catch (e) {}
+  })();
 
   /* ---------- harbor moon, painted once ---------- */
   (function () {

@@ -19,6 +19,15 @@ COLLS = {
     'reflect': dict(name='Reflections', gloss='', intro='Quieter rooms and still lifes — canal light, a fireplace, a teapot in the mirror.', color='#7B5EA7'),
     'private': dict(name='In private collections', gloss='', intro='Originals that now live with collectors. Fine-art prints of each are still available.', color='#596172'),
 }
+# One track per part of the site. Files live in ./audio, re-encoded mono ~88kbps.
+# Only shipped with the deployed site: the artifact viewer can't load audio files.
+MUSIC = {
+    'sail':      dict(file='sail.web.mp3',      title='Shores of Avalon',  by='Kevin MacLeod', lic='CC BY 4.0'),
+    'portraits': dict(file='portraits.web.mp3', title='Nacional Joropo',   by='Lionel Belasco Orchestra', lic='public domain'),
+    'workshops': dict(file='workshops.web.mp3', title='Lobby Time',        by='Kevin MacLeod', lic='CC BY 4.0'),
+    'night':     dict(file='night.web.mp3',     title='Evening Fall (Harp)', by='Kevin MacLeod', lic='CC BY 4.0'),
+}
+
 PRINTS = ('prints', 'Prints available')
 ASK = ('ask', 'Original available — ask Sandra')
 SOLD = ('sold', 'Original sold · prints available')
@@ -101,7 +110,22 @@ def color_tags(path):
     return [k for k, n in ranked[:3] if n / total >= 0.07]
 
 
-def render(site_url=None, img_dir=os.path.join(HERE, 'img')):
+def music_bits(with_music):
+    """Sound toggle, track map and footer credit — empty when music isn't shipped."""
+    if not with_music:
+        return '', 'null', ''
+    btn = ('<button type="button" id="sound" class="soundbtn" aria-pressed="false">'
+           '<span class="note" aria-hidden="true">&#9834;</span><span id="sound-label">Sound on</span></button>')
+    tracks = json.dumps({k: dict(src='audio/' + v['file']) for k, v in MUSIC.items()})
+    km = [v['title'] for v in MUSIC.values() if v['by'] == 'Kevin MacLeod']
+    credit = ('<span class="credit">Music: ' + ', '.join('&ldquo;%s&rdquo;' % t for t in km) +
+              ' by Kevin MacLeod (incompetech.com), licensed under '
+              '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. '
+              '&ldquo;Nacional Joropo&rdquo; &mdash; Lionel Belasco Orchestra, public domain.</span>')
+    return btn, tracks, credit
+
+
+def render(site_url=None, img_dir=os.path.join(HERE, 'img'), with_music=False):
     tags = {p[0]: color_tags(os.path.join(img_dir, p[0] + '.webp')) for p in P}
     ccount = {k: sum(1 for t in tags.values() if k in t) for k in COLORS}
     swatches = ''.join(
@@ -148,6 +172,8 @@ def render(site_url=None, img_dir=os.path.join(HERE, 'img')):
     t = open(os.path.join(HERE, 'site.tpl.html'), encoding='utf8').read()
     t = t.replace('<!--CHIPS-->', ''.join(chips)).replace('<!--PIECES-->', '\n'.join(figs))
     t = t.replace('<!--JSONLD-->', '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>')
+    btn, tracks, credit = music_bits(with_music)
+    t = t.replace('<!--SOUNDBTN-->', btn).replace('/*MUSIC*/', tracks).replace('<!--MUSICCREDIT-->', credit)
     t = t.replace('<!--SWATCHES-->', swatches)
     t = t.replace('/*COLORS*/', json.dumps({k: dict(name=c['name'], hex=c['hex'], hues=c['hues']) for k, c in COLORS.items()}))
     return t.replace('/*COLLS*/', json.dumps({k: dict(name=v['name'], gloss=v['gloss'], intro=v['intro']) for k, v in COLLS.items()}, ensure_ascii=False))
@@ -182,7 +208,13 @@ def build_artifact(out, img_dir):
 def build_deploy(out, url, img_dir):
     from PIL import Image
     url = url.rstrip('/') + '/'
-    t = render(url, img_dir)
+    t = render(url, img_dir, with_music=True)
+    os.makedirs(os.path.join(out, 'audio'), exist_ok=True)
+    for v in MUSIC.values():
+        audio_dir = os.path.join(os.path.dirname(os.path.abspath(img_dir)), 'audio')
+        src, dst = os.path.join(audio_dir, v['file']), os.path.join(out, 'audio', v['file'])
+        if os.path.abspath(src) != os.path.abspath(dst):
+            shutil.copyfile(src, dst)
     used = sorted(set(IMG_RE.findall(t)))
     os.makedirs(os.path.join(out, 'img'), exist_ok=True)
     titles = {p[0]: p[4] for p in P}

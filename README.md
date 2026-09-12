@@ -10,7 +10,9 @@ Portfolio site for Sandra Añez Powell, a Venezuelan-born acrylic painter in Ann
 - **Dip into a color:** filter paintings by their dominant color families, measured from the images at build time.
 - **Match my room:** a visitor picks or snaps a photo, and the browser reads its colors and ranks the paintings. The photo never leaves the device.
 - **See it on a wall:** shows the painting above an 84″ sofa at 16/24/36″, on four wall colors.
-- Brushwork loupe (desktop), swipe browsing (touch), "Rehang the wall" shuffle, and a print order slip that sends an email.
+- **Art in Action:** her painting-workshop offering, with an inquiry button and an Instagram clip.
+- **Gallery sound:** four tracks that crossfade by section, off until the visitor presses "Sound on" (the choice is remembered). Files are in `audio/`, re-encoded to mono ~88 kbps and trimmed to 2:30, and are only downloaded once sound is on. Credits are in the page footer; the licences are CC BY 4.0 (Kevin MacLeod, incompetech.com) and public domain (Lionel Belasco Orchestra).
+- Brushwork loupe (desktop), swipe browsing (touch), "Rehang the wall" shuffle, and a print order slip that emails Sandra with a blind copy to John.
 - SEO: title and description, Open Graph tags, JSON-LD (Person + VisualArtwork), an image sitemap and robots.txt.
 
 ## Editing
