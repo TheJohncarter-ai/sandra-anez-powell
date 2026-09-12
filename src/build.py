@@ -152,6 +152,23 @@ def render(site_url=None, img_dir=os.path.join(HERE, 'img')):
     return t.replace('/*COLLS*/', json.dumps({k: dict(name=v['name'], gloss=v['gloss'], intro=v['intro']) for k, v in COLLS.items()}, ensure_ascii=False))
 
 
+def xmp_for(title, url):
+    """IPTC-style creator, credit and rights, as XMP, for one image."""
+    esc = lambda s: html.escape(s, quote=False)
+    return (
+        '<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>'
+        '<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'
+        '<rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"'
+        ' xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/">'
+        '<dc:creator><rdf:Seq><rdf:li>Sandra Añez Powell</rdf:li></rdf:Seq></dc:creator>'
+        f'<dc:title><rdf:Alt><rdf:li xml:lang="x-default">{esc(title)}</rdf:li></rdf:Alt></dc:title>'
+        '<dc:rights><rdf:Alt><rdf:li xml:lang="x-default">© 2026 Sandra Añez Powell. All rights reserved.</rdf:li></rdf:Alt></dc:rights>'
+        '<photoshop:Credit>Sandra Añez Powell</photoshop:Credit>'
+        '<xmpRights:Marked>True</xmpRights:Marked>'
+        f'<xmpRights:WebStatement>{url}</xmpRights:WebStatement>'
+        '</rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="w"?>')
+
+
 IMG_RE = re.compile(r'\{\{img:([a-z0-9_]+)\}\}')
 
 
@@ -167,10 +184,13 @@ def build_deploy(out, url, img_dir):
     t = render(url, img_dir)
     used = sorted(set(IMG_RE.findall(t)))
     os.makedirs(os.path.join(out, 'img'), exist_ok=True)
+    titles = {p[0]: p[4] for p in P}
+    titles['d01_5'] = 'Sandra Añez Powell in her studio'
     for n in used:
         src, dst = os.path.join(img_dir, n + '.webp'), os.path.join(out, 'img', n + '.webp')
-        if os.path.abspath(src) != os.path.abspath(dst):
-            shutil.copyfile(src, dst)
+        # Creator/credit/rights ride inside the file: Google Images shows them,
+        # and they travel with the image when someone else re-posts it.
+        Image.open(src).save(dst, 'WEBP', quality=78, method=6, xmp=xmp_for(titles.get(n, 'Painting'), url))
     og = Image.open(os.path.join(img_dir, 's_regatta.webp')).convert('RGB')
     og.save(os.path.join(out, 'img', 'og-regatta.jpg'), 'JPEG', quality=85)
     t = IMG_RE.sub(lambda m: f'img/{m.group(1)}.webp', t)
