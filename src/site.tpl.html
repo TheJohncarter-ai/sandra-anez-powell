@@ -786,7 +786,12 @@
     placeArt();
   }
   function stepLb(d) { var list = visible(); if (list.length) showLb(list[(lbIdx + d + list.length) % list.length]); }
-  function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; hideLoupe(); if (lastFocus) lastFocus.focus(); }
+  function closeLb() {
+    lb.classList.remove('open'); document.body.style.overflow = ''; hideLoupe();
+    stage.classList.remove('walled'); tools.hidden = true;
+    wallBtn.setAttribute('aria-pressed', 'false'); wallBtn.textContent = 'See it on a wall';
+    if (lastFocus) lastFocus.focus();
+  }
   pieces.forEach(function (p) { p.querySelector('.frame').addEventListener('click', function () { showLb(p); }); });
   lb.querySelector('.lb-close').addEventListener('click', closeLb);
   lb.querySelector('.lb-prev').addEventListener('click', function () { stepLb(-1); });
@@ -825,7 +830,8 @@
   var room = document.getElementById('room'), art = document.getElementById('room-art'), sizeIn = 24;
   function placeArt() {
     if (!stage.classList.contains('walled') || !current) return;
-    var img = current.querySelector('img'), ratio = img.width / img.height;
+    if (!room.clientWidth) { requestAnimationFrame(placeArt); return; }  /* not laid out yet */
+    var img = current.querySelector('img'), ratio = (img.naturalWidth || img.width) / (img.naturalHeight || img.height);
     var sofaW = room.clientWidth * (room.clientWidth < room.clientHeight ? 0.86 : 0.56);
     var longPx = sofaW * sizeIn / 84, w = ratio >= 1 ? longPx : longPx * ratio, h = ratio >= 1 ? longPx / ratio : longPx;
     var sofaTop = room.clientHeight * 0.11 + sofaW * 300 / 840 * 0.87;

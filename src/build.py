@@ -50,7 +50,7 @@ P = [
  ('d07_2', 507, 463, 'divina', 'Divina No. 2', ASK, 'Acrylic painting: a mother and child cheek to cheek, wrapped in golden hair against orange stripes'),
  ('d07_1', 548, 552, 'divina', 'Divina No. 3', ASK, 'Acrylic painting: four women in brightly patterned dresses standing together'),
  ('d06_3', 474, 1100, 'divina', 'Divina No. 4', ASK, 'Acrylic painting: a tall figure with long braids in a pink and violet dress'),
- ('d06_1', 1100, 497, 'divina', 'Divina No. 5', ASK, 'Acrylic painting: a reclining woman in deep red against pink, green and coral shapes'),
+ ('d06_1', 497, 1100, 'divina', 'Divina No. 5', ASK, 'Acrylic painting: a woman in a deep red dress, her form outlined in black against pink, green and coral'),
  ('d07_0', 485, 568, 'divina', 'Divina No. 6', ASK, 'Acrylic painting: a faceless woman in a rose-colored blouse before a patterned wall'),
  ('d07_4', 456, 779, 'divina', 'Divina No. 7', ASK, 'Acrylic painting: a woman in a green dress and head wrap, painted in soft teal'),
  ('d08_1', 759, 377, 'floral', 'Floral No. 1', ASK, 'Acrylic painting: a vast orange-red poppy fills the canvas, edged in green'),
