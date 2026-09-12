@@ -250,6 +250,18 @@
   .work-why p { margin: 0; color: var(--soft); max-width: 44rem; }
   @media (max-width: 900px) { .work-head, .work-why { grid-template-columns: 1fr; } .work-why { gap: 20px; justify-items: start; } }
 
+  /* the Instagram embed replaces this blockquote once its script loads;
+     where that script is blocked, the styled link below stands in for it */
+  .reel { margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--line); }
+  .reel .rowlabel { margin-bottom: 14px; }
+  .instagram-media { margin: 0 !important; max-width: 540px; }
+  .reel blockquote:not(.instagram-media-rendered) {
+    background: var(--mat); border: 1px solid var(--line); border-radius: 8px;
+    padding: 18px 22px; box-shadow: var(--shadow);
+  }
+  .reel blockquote a { color: var(--accent-ink); font-weight: 700; text-decoration: none; }
+  .reel blockquote a:hover { text-decoration: underline; }
+
   /* commission */
   .commission-inner { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
   .commission .intro { color: var(--soft); max-width: 30rem; margin: 16px 0 26px; }
@@ -531,6 +543,12 @@
       <p>Creative, hands-on art activities are a proven way to build trust, boost emotional wellbeing and spark joy in a group &mdash; turning collaboration into a shared, memorable experience. Art-based sessions break down formal barriers, encourage natural conversation, and create a safe space for expression.</p>
       <a class="btn" id="workshop-mail" href="#contact">Ask about a workshop</a>
     </div>
+    <div class="reel">
+      <p class="rowlabel">From a recent session</p>
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DO9esd9ASiX/" data-instgrm-version="14">
+        <a href="https://www.instagram.com/p/DO9esd9ASiX/" target="_blank" rel="noopener">Watch a workshop on Instagram &rarr;</a>
+      </blockquote>
+    </div>
   </div>
 </section>
 
@@ -661,14 +679,16 @@
 </div>
 
 <script>
-  var ORDER_EMAIL = 'powelljohn9521@gmail.com'; /* swap for Sandra's address */
+  var ORDER_EMAIL = 'sandraanezpowell4@gmail.com';   /* inquiries go to Sandra */
+  var BCC_EMAIL = 'powelljohn9521@gmail.com';        /* blind copy, so nothing gets missed */
   var COLLS = /*COLLS*/;
   var COLORS = /*COLORS*/;
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   function mailto(subject, body) {
-    return 'mailto:' + ORDER_EMAIL + '?subject=' + encodeURIComponent(subject) + (body ? '&body=' + encodeURIComponent(body) : '');
+    return 'mailto:' + ORDER_EMAIL + '?bcc=' + encodeURIComponent(BCC_EMAIL) +
+      '&subject=' + encodeURIComponent(subject) + (body ? '&body=' + encodeURIComponent(body) : '');
   }
   document.getElementById('mail-original').href = mailto('A question about an original — Sandra Añez Powell');
   document.getElementById('mail-list').href = mailto('Please add me to Sandra’s collector list', 'Hello Sandra,\n\nPlease add me to your collector list so I hear about new paintings first.\n\nName:\nCity:\n');
@@ -953,7 +973,7 @@
     document.getElementById('sent').textContent = 'Your email app should open with the order — just press send.';
   });
   document.getElementById('copy-order').addEventListener('click', function () {
-    var txt = 'To: ' + ORDER_EMAIL + '\n\n' + orderText();
+    var txt = 'To: ' + ORDER_EMAIL + '\nBcc: ' + BCC_EMAIL + '\n\n' + orderText();
     function done() { document.getElementById('sent').textContent = 'Order summary copied — paste it into any email or message.'; }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, done); else done();
   });
@@ -997,3 +1017,4 @@
     place();
   })();
 </script>
+<script async src="https://www.instagram.com/embed.js"></script>
