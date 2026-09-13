@@ -425,9 +425,13 @@
     .salon-wrap { justify-self: start; }
     .about-inner, .commission-inner { grid-template-columns: 1fr; gap: 36px; }
     .studio { max-width: 340px; }
-    .lightbox.open { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; gap: 14px; padding: 58px 14px 16px; overflow-y: auto; align-items: stretch; }
-    #lb-img { max-height: 56vh; padding: 6px; }
-    .room { aspect-ratio: 4 / 5; max-height: 58vh; width: auto; height: 58vh; }
+    /* plain document flow on phones: grid rows sized against a mis-measured
+       viewport are exactly how the picture ended up off-screen */
+    .lightbox.open { display: block; padding: 56px 14px 22px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .lb-stage { display: block; height: auto; text-align: center; }
+    #lb-img { display: inline-block; max-height: 58vh; max-width: 100%; width: auto; height: auto; padding: 6px; }
+    .lb-info { margin-top: 18px; }
+    .room { aspect-ratio: 4 / 5; max-height: 58vh; width: auto; height: 58vh; margin: 0 auto; }
     .room .sofa { width: 86%; }
     .lb-close { top: 8px; right: 8px; }
     .lb-prev, .lb-next { top: 8px; }
@@ -974,7 +978,21 @@
 
   /* ---------- lightbox ---------- */
   var lb = document.getElementById('lb'), stage = document.getElementById('lb-stage'), lbImg = document.getElementById('lb-img');
-  var lbIdx = 0, lastFocus = null, current = null, askSubject = '', askBody = '';
+  var lbIdx = 0, lastFocus = null, current = null, askSubject = '', askBody = '', scrollY0 = 0;
+
+  /* iOS Safari renders a fixed overlay blank if you set body{overflow:hidden}
+     while the page is scrolled, which left the lightbox black on phones.
+     Pinning the body at a negative offset locks the page without that bug. */
+  function lockScroll() {
+    scrollY0 = window.scrollY || window.pageYOffset || 0;
+    var b = document.body.style;
+    b.position = 'fixed'; b.top = -scrollY0 + 'px'; b.left = '0'; b.right = '0'; b.width = '100%';
+  }
+  function unlockScroll() {
+    var b = document.body.style;
+    b.position = ''; b.top = ''; b.left = ''; b.right = ''; b.width = '';
+    window.scrollTo(0, scrollY0);
+  }
   function visible() { return pieces.filter(function (p) { return !p.hidden; }); }
   function showLb(p) {
     var list = visible(); lbIdx = list.indexOf(p); current = p;
@@ -989,12 +1007,17 @@
     askBody = 'Hello Sandra,\n\nI’d love to know more about “' + p.dataset.title + '” (' + COLLS[p.dataset.coll].name + '). Is the original available, and what size is it?\n';
     document.getElementById('lb-ask').href = mailto(askSubject, askBody);
     lb.dataset.id = p.dataset.id;
-    if (!lb.classList.contains('open')) { lastFocus = document.activeElement; lb.classList.add('open'); document.body.style.overflow = 'hidden'; lb.querySelector('.lb-close').focus(); }
+    stage.classList.remove('walled');               /* always open on the painting itself */
+    tools.hidden = true;
+    wallBtn.setAttribute('aria-pressed', 'false');
+    wallBtn.textContent = 'See it on a wall';
+    if (!lb.classList.contains('open')) { lastFocus = document.activeElement; lb.classList.add('open'); lockScroll(); lb.querySelector('.lb-close').focus(); }
+    lb.scrollTop = 0;                               /* always start on the painting */
     placeArt();
   }
   function stepLb(d) { var list = visible(); if (list.length) showLb(list[(lbIdx + d + list.length) % list.length]); }
   function closeLb() {
-    lb.classList.remove('open'); document.body.style.overflow = ''; hideLoupe();
+    lb.classList.remove('open'); unlockScroll(); hideLoupe();
     stage.classList.remove('walled'); tools.hidden = true;
     wallBtn.setAttribute('aria-pressed', 'false'); wallBtn.textContent = 'See it on a wall';
     if (lastFocus) lastFocus.focus();
